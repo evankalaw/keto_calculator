@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Keto Calculator</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+	<div class="jumbotron" id="boxtop">
+			<div class="container-fluid">
+			<h1 class="col-xs-12">Keto Calculator</h1>
+			</div>
+	</div>
+
+	<div class="container" id="calcbox">
+
+		<p id="info-top">Want to start a ketogenic diet? Let’s find out the macros you need to meet your goals.</p>
+		<p id="info-bottom">We will use the information below in order to create your own personal nutrition profile.</p>
+
+		<form id="boxcontent">
+
+			<h4>GENDER</h4>
+			<div class="row">
+				<div class="container">
+					<div class="form-check form-check-inline col-xs-4">
+					  <label class="form-check-label">
+					    <input class="form-check-input" type="radio" name="gender" id="male" value="option1" required> Male
+					  </label>
+					</div>
+
+					<div class="form-check form-check-inline col-xs-4">
+					  <label class="form-check-label">
+					    <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="female" require> Female
+					  </label>
+					</div>
+				</div>
+			</div>
+
+
+		 <h4>YOUR AGE</h4>
+		 <div class="row">
+		 	<div class="container">
+		 		<div class="form-group col-xs-6">
+				    <input type="number" class="form-control" id="age" placeholder="25%" required>
+				  </div>
+		 	</div>	
+		 </div>
+
+		  <hr>
+
+		  <h4>HEIGHT & WEIGHT</h4>
+
+		  <div class="form-group" id="hnw">
+		  	<div class="container">
+			  	<div class="row">
+			  	<div class="col-md-4 col-xs-4">
+		    		<input type="number" class="form-control" id="pwd" placeholder="0" required>
+		    		<span>ft.</span>
+	    		</div>
+	    		<div class="col-xs-4">
+		    		<input type="number" class="form-control" id="pwd" placeholder="0" required>
+		    		<span>in.</span>
+	    		</div>
+	    		<div class="col-xs-4">
+		    		<input type="number" class="form-control" id="formGroupExampleInput2" placeholder="000" required> 
+		    		<span>lbs.</span>
+	    		</div>
+    		</div>
+ 		 	</div>
+
+ 		 <hr>
+
+		 <h4>BODY FAT PERCENTAGE</h4>
+		 <div class="row">
+		 	<div class="container">
+		 		<div class="form-group col-xs-6">
+				    <input type="number" class="form-control" id="age" placeholder="25%" required>
+				  </div>
+		 	</div>	
+		 </div>
+
+		 <hr>
+
+		 <h4>ACTIVITY LEVEL</h4>
+ 		 <div class="row">
+	 		 <div class="container">
+		 		 <div class="form-group col-xs-12 col-md-6">
+					  <select class="form-control" id="sel1" required>
+					    <option>Sedentary</option>
+					    <option>Light Exercise</option>
+					    <option>Moderate Exercise</option>
+					    <option>Heavy Exercise</option>
+					    <option>Extreme Exercise</option>
+					  </select>
+				 </div>
+			 </div>
+		 </div>
+
+		 <hr>
+
+		 <h4>DEFICIT? SURPLUS?</h4>
+
+		 <hr>
+
+		 <h4>CARBS AND PROTEIN BREAKDOWN</h4>
+
+		 <div class="text-center">
+     	<button type="submit" class="btn-lg btn-success" id="calculate">Calculate!</button>
+		 </div>
+
+		</form>
+
+	</div>
+
+</body>
+</html>

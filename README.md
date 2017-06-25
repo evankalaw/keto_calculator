@@ -1,4 +1,4 @@
-# keto-calculator
+# keto_calculator
 
 A ketogenic diet, or “keto” as it is often referred to as, focuses on eating foods that are very low in carbohydrates. This project is a calculator that calculates a persons ideal macronutrients for a ketogenic diet (taking in stuff like height, weight, body fat %, etc.).
 

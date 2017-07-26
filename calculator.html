@@ -91,11 +91,10 @@
 	 		 <div class="container">
 		 		 <div class="form-group form-inline">
 					  <select class="form-control" id="activityLevel" required>
-					    <option>Sedentary: Little/No exercise</option>
-					    <option>Light Exercise Intensity: 1-3x a week</option>
-					    <option>Moderate Exercise Intensity: 3-5x a week</option>
-					    <option>Heavy Exercise Intensity: 6-7x a week</option>
-					    <option>Extreme Exercise Intensity: 2x a day</option>
+					    <option value="0">Sedentary: Little/No exercise</option>
+					    <option value="1">Light Exercise Intensity: 1-3x a week</option>
+					    <option value="2">Moderate Exercise Intensity: 3-5x a week</option>
+					    <option value="3">Heavy Exercise Intensity: 6-7x a week</option>
 					  </select>
 				 </div>
 			 </div>
@@ -105,15 +104,18 @@
 
 		 <h4>DEFICIT? SURPLUS?</h4>
 		 <h2 id="deficitPHold">--</h2>
-		 <input type="range" min="-3.5" max=".5" step=".5" value="0" id="deficitRange" >
+		 <input type="range" min="-35" max="5" step="5" value="0" id="deficitRange" >
+
+		 <h2 class="caloriesPHold">--</h2>
+		 <h4 class="caloriesPHold">total (kcal)</h4>
 
 		</form>
 
 		<table class="table">
 			<tr>
-				<td class="col-md-4 col-xs-4">--</td>
-				<td class="col-md-4 col-xs-4">--</td>
-				<td class="col-md-4 col-xs-4">--</td>
+				<td class="col-md-4 col-xs-4 macro">--</td>
+				<td class="col-md-4 col-xs-4 macro">--</td>
+				<td class="col-md-4 col-xs-4 macro">--</td>
 			</tr>
 			<tr>
 				<th class="col-md-4 col-xs-4">protein (g) - goal!</th>

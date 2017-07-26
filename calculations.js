@@ -1,15 +1,10 @@
-var isMale;
+var isMale = true;
 var uAge;
-var uHeightFeet;
-var uHeightInches;
+var uHeightMajor;
+var uHeightMinor;
 var uWeight;
 var uBodyFat;
-var sedentary = false;
-var light = false;
-var moderate = false;
-var heavy = false;
-var extreme = false;
-var deficit = 0;
+var calorieModifier = 0;
 var genderButtons = document.querySelectorAll(".genderButton");
 var ageInput = document.querySelector("#age");
 var ft = document.querySelector("#height_major");
@@ -19,49 +14,120 @@ var bodyFat = document.querySelector("#bodyfat");
 var activityLevel = document.querySelector("#activityLevel");
 var deficitSlider = document.getElementById("deficitRange");
 var deficitPlaceHolder = document.getElementById("deficitPHold");
+var caloriePlaceHolder = document.querySelector(".caloriesPHold");
+var macros = document.querySelectorAll(".macro");
 
 //Add functionality to all inputs
 genderButtons[0].addEventListener("click", function() {
 	isMale = true;
+	update();
 });
 
 genderButtons[1].addEventListener("click", function() {
 	isMale = false;
+	update();
 });
 
 ageInput.addEventListener("change", function(){
 	uAge = Number(ageInput.value);
+	update();
 });
 
 ft.addEventListener("change", function(){
-	uHeightFeet = Number(ft.value);
+	uHeightMajor = Number(ft.value)/3.28 * 100;
+	update();
 });
 
 inches.addEventListener("change", function(){
-	uHeightInches = Number(inches.value);
+	uHeightMinor = Number(inches.value) * 2.54;
+	update();
 });
 
 weight.addEventListener("change", function(){
 	uWeight = Number(weight.value);
+	update();
 });
 
 bodyFat.addEventListener("change", function(){
-	uBodyFat = Number(bodyFat.value)/100;
+	uBodyFat = Number(bodyFat.value);
+	update();
 });
 
+//Activity will be defaulted to 0 (sedentary)
+var activity = 1.1;
 activityLevel.addEventListener("change", function() {
-	console.log(this.value);
-});
+	switch (Number(activityLevel.value)) {
+		case 0:
+			activity = 1.1;
+			break;
+		case 1:
+			activity = 1.1702;
+			break;
+		case 2:
+			activity = 1.2402;
+			break;
+		case 3:
+			activity = 1.3283;
+			break;
+	}
+	update();
+}); 
 
-deficitPlaceHolder.textContent = deficit + "% (maintenance)";
+deficitPlaceHolder.textContent = calorieModifier + "% (maintenance)";
+var isDeficit = false;
 
 deficitSlider.addEventListener("input", function() {
-	deficit = Number(deficitSlider.value);
-	if (deficit < 0) {
-			deficitPlaceHolder.textContent = deficit + "% deficit";
-	} else if (deficit > 0) {
-		deficitPlaceHolder.textContent = deficit + "% surplus";
+	calorieModifier = Number(deficitSlider.value);
+	if (calorieModifier < 0) {
+			deficitPlaceHolder.textContent = calorieModifier + "% deficit";
+			isDeficit = true;
+	} else if (calorieModifier > 0) {
+		deficitPlaceHolder.textContent = calorieModifier + "% surplus";
+		isDeficit = false;
 	} else {
-		deficitPlaceHolder.textContent = deficit + "% (maintenance)";
+		deficitPlaceHolder.textContent = calorieModifier + "% (maintenance)";
+		isDeficit = false;
 	}
+	update();
 });
+
+function calculateCalories() {
+	var uHeight = uHeightMajor + uHeightMinor;
+	var uWeightKG = uWeight*0.45359237
+
+	var hbBMR;
+	if (isMale) {
+		hbBMR = 66 + (13.7 * uWeightKG) + (5 * uHeight) - (6.8 * uAge);
+	} else {
+		hbBMR = 655 + (9.6 * uWeightKG) + (1.8 * uHeight) - (4.7 * uAge);
+	}
+
+	var kmaBMR = 370 + (21.6 * (100-uBodyFat)/100 * uWeightKG);
+
+	var estimatedBMR = Math.sqrt(hbBMR*kmaBMR);
+
+	var total = estimatedBMR*activity;
+
+	if (isDeficit) {
+		total = total*((calorieModifier+100)/100);
+	} else {
+		total += total*(calorieModifier/100);
+	}
+
+	return Math.floor(total);
+}
+
+function update() {
+	if (isNaN(calculateCalories())) {
+		return;
+	} else {
+		var calories = calculateCalories();
+		var protein = Math.ceil(0.8 * uWeight);
+		var carbs = 20;
+		var fat = Math.floor((calories - (20*4) - (protein*4))/9)
+		caloriePlaceHolder.textContent = calories;
+		macros[0].textContent = protein;
+		macros[1].textContent = fat;
+		macros[2].textContent = 20;
+	}
+}

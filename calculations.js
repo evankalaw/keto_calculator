@@ -122,7 +122,8 @@ function update() {
 		return;
 	} else {
 		var calories = calculateCalories();
-		var protein = Math.ceil(0.8 * uWeight);
+		var lbm = uWeight*((100-uBodyFat)/100);
+		var protein = Math.ceil(0.8 * lbm);
 		var carbs = 20;
 		var fat = Math.floor((calories - (20*4) - (protein*4))/9)
 		caloriePlaceHolder.textContent = calories;

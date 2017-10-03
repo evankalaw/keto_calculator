@@ -95,6 +95,7 @@ function calculateCalories() {
 	var uHeight = uHeightMajor + uHeightMinor;
 	var uWeightKG = uWeight*0.45359237
 
+	//calculates Harris-Benedict Formula - checks if male or female to determine which formula
 	var hbBMR;
 	if (isMale) {
 		hbBMR = 66 + (13.7 * uWeightKG) + (5 * uHeight) - (6.8 * uAge);
@@ -102,8 +103,10 @@ function calculateCalories() {
 		hbBMR = 655 + (9.6 * uWeightKG) + (1.8 * uHeight) - (4.7 * uAge);
 	}
 
+	//Calculates Katch-McArdle Formula
 	var kmaBMR = 370 + (21.6 * (100-uBodyFat)/100 * uWeightKG);
 
+	//Calculates Spherical mean of both formulas as a compromise
 	var estimatedBMR = Math.sqrt(hbBMR*kmaBMR);
 
 	var total = estimatedBMR*activity;
@@ -121,6 +124,7 @@ function update() {
 	if (isNaN(calculateCalories())) {
 		return;
 	} else {
+		//Calculate macronutrients & calories
 		var calories = calculateCalories();
 		var lbm = uWeight*((100-uBodyFat)/100);
 		var protein = Math.ceil(0.8 * lbm);

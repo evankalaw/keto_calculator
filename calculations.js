@@ -1,4 +1,4 @@
-var isMale = true;
+var isMale;
 var uAge;
 var uHeightMajor;
 var uHeightMinor;
@@ -16,6 +16,7 @@ var deficitSlider = document.getElementById("deficitRange");
 var deficitPlaceHolder = document.getElementById("deficitPHold");
 var caloriePlaceHolder = document.querySelector(".caloriesPHold");
 var macros = document.querySelectorAll(".macro");
+//var filled = false;
 
 //Add functionality to all inputs
 genderButtons[0].addEventListener("click", function() {
@@ -30,26 +31,29 @@ genderButtons[1].addEventListener("click", function() {
 
 ageInput.addEventListener("change", function(){
 	uAge = Number(ageInput.value);
-	update();
+	//if (uAge == 0) filled = false;
 });
 
 ft.addEventListener("change", function(){
 	uHeightMajor = Number(ft.value)/3.28 * 100;
+	//if (uHeightMajor == 0) filled = false;
 	update();
 });
 
 inches.addEventListener("change", function(){
 	uHeightMinor = Number(inches.value) * 2.54;
-	update();
+	//if (uHeightMinor == 0) filled = false;
 });
 
 weight.addEventListener("change", function(){
 	uWeight = Number(weight.value);
+	//if (uWeight == 0) filled = false;
 	update();
 });
 
 bodyFat.addEventListener("change", function(){
 	uBodyFat = Number(bodyFat.value);
+	//if (uBodyFat == 0) filled = false;
 	update();
 });
 
@@ -91,7 +95,13 @@ deficitSlider.addEventListener("input", function() {
 	update();
 });
 
+function isValid() {
+	if (uAge == 0 || uBodyFat == 0 || uHeightMajor == 0 || uHeightMinor == 0 || uWeight == 0) return false;
+	return true;
+}
+
 function calculateCalories() {
+	//if (filled == false) return NaN;
 	var uHeight = uHeightMajor + uHeightMinor;
 	var uWeightKG = uWeight*0.45359237
 
@@ -123,7 +133,12 @@ function calculateCalories() {
 function update() {
 	if (isNaN(calculateCalories())) {
 		return;
-	} else {
+	} else if (isValid() == false) {
+	  caloriePlaceHolder.textContent = '--';
+		macros[0].textContent = '--';
+		macros[1].textContent = '--';
+		macros[2].textContent = '--';
+	}	else {
 		//Calculate macronutrients & calories
 		var calories = calculateCalories();
 		var lbm = uWeight*((100-uBodyFat)/100);
